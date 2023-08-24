@@ -1,0 +1,33 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "CRUD Despesas",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "description": "Rota para autenticar usuário",
+                "operationId": "ea134134deae11eb974c719450ef8a02",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "The data"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerToken": {
+                "type": "http",
+                "description": "Access token authenticate",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
