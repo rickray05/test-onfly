@@ -2,6 +2,7 @@
 
 namespace App\Services\Expense;
 
+use App\Jobs\SendEmailRegisteredExpenseJob;
 use App\Models\Expense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,5 +26,7 @@ class CreateExpenseService
             'value'        => $this->request->value,
             'user_id'      => Auth::id()
         ]);
+
+        dispatch(new SendEmailRegisteredExpenseJob());
     }
 }
