@@ -1,66 +1,248 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Teste Onfly (CRUD Despesas)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Esse é um projeto de uma API com um CRUD simples de despesas utilizando PHP (Framework Laravel 10)
 
-## About Laravel
+## 🚀 Começando
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 📋 Pré-requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```
+composer
+```
 
-## Learning Laravel
+### 🔧 Instalação
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Para iniciar o projeto basta executar os seguintes comandos
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Configure uma instancia de banco de dados no arquivo .env:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+DB_CONNECTION=mysql
+DB_HOST={seu host}
+DB_PORT=3306
+DB_DATABASE={database}
+DB_USERNAME={usuario}
+DB_PASSWORD={senha}
+```
 
-## Laravel Sponsors
+Instale os pacotes:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```
+composer install
+```
 
-### Premium Partners
+Execute o comando:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```
+php artisan migrate
+```
 
-## Contributing
+E por fim rode o Seed para gerar os usuários de teste na base:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+php artisan db:seed
+```
 
-## Code of Conduct
+Após feito isso, podemos perceber que na tabela users do banco temos alguns usuários cadastrados, para o teste da nossa API, use o usuário a seguir:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+email: test@example.com
+senha: 123456
+```
 
-## Security Vulnerabilities
+Execute o comando para subir o servidor do laravel
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+php artisan serve
+```
+Apartir dai temos nossos endpoints pronots pra teste
 
-## License
+```
+http://127.0.0.1:8000/api/login
+http://127.0.0.1:8000/api/expense/create
+http://127.0.0.1:8000/api/expense/list
+http://127.0.0.1:8000/api/expense/list/{idExpense}
+http://127.0.0.1:8000/api/expense/update/{idExpense}
+http://127.0.0.1:8000/api/expense/delete/{idExpense}
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## ⚙️ Executando os testes
+
+Para executar os testes unitários basta rodar o comando.
+
+```
+./vendor/bin/phpunit
+```
+
+### 🛠️ Login
+
+Rota responavél por executar o login na nossa API
+
+**Endpoint**: /api/login
+
+**METHOD**: POST
+
+**Body**: 
+```
+{
+	"email": "test@example.com",
+	"password": 123456
+}
+```
+
+
+**Response**:
+```
+{
+	"token": "16|laravel_sanctum_V12K3Ci4rRyl0k6QRKxI478GNxQTDy5JWUfedTGP2e6a7167"
+}
+```
+### 🛠️ Create
+
+Rota responavél criar uma despesa
+
+**Endpoint**: /api/expense/create
+
+**METHOD**: POST
+
+**Autenticação**: BearerToken
+
+**Body**: 
+```
+{
+	"description": "asdkfjasçlkfjalskdfjalksdjfklasdjfnlçasjkdflkcanjsdkfçnajslçkdfjnvalksdjfnlaksjdnfvlkçasjndflkjavnf",
+	"date_expense": "2023-08-23 01:02:35",
+	"value": 12.50
+}
+```
+
+*Obs:* A descrição pode ter até 191 caracteres, e a data não pode ser maior que a data atual.
+
+
+**Response**:
+```
+{
+	"status": "success",
+	"message": "User created with success."
+}
+```
+
+### 🛠️ Update
+
+Rota responavél editar uma despesa
+
+**Endpoint**: /api/expense/create/{idExpense}
+
+**METHOD**: PUT
+
+**Autenticação**: BearerToken
+
+**Body**: 
+```
+{
+	"description": "asdkfjasçlkfjalskdfjalksdjfklasdjfnlçasjkdflkcanjsdkfçnajslçkdfjnvalksdjfnlaksjdnfvlkçasjndflkjavnf",
+	"date_expense": "2023-08-23 01:02:35",
+	"value": 12.50
+}
+```
+
+*Obs:* A descrição pode ter até 191 caracteres, e a data não pode ser maior que a data atual.
+
+
+**Response**:
+```
+{
+	"status": "success",
+	"message": "User updated with success."
+}
+```
+
+### 🛠️ Delete
+
+Rota responavél deletar uma despesa
+
+**Endpoint**: /api/expense/create/{idExpense}
+
+**METHOD**: DELETE
+
+**Autenticação**: BearerToken
+
+**Body**: 
+```
+no body
+```
+
+**Response**:
+```
+{
+	"status": "success",
+	"message": "User deleted with success."
+}
+```
+
+### 🛠️ Listar
+
+Rota responavél por listar todas as despesas do usuário
+
+**Endpoint**: /api/expense/list
+
+**METHOD**: GET
+
+**Autenticação**: BearerToken
+
+**Body**: 
+```
+no body
+```
+
+**Response**:
+```
+{
+	"status": "success",
+	"message": Success.",
+	"data": [
+		{
+			"description": "Teste Carlos 1",
+			"date": "2023-08-23 01:02:35",
+			"value": "12.50"
+		}
+	]
+}
+```
+
+### 🛠️ Listar por Despesas
+
+Rota responavél por listar por uma despesa específica do usuário
+
+**Endpoint**: /api/expense/list/{idExpense}
+
+**METHOD**: GET
+
+**Autenticação**: BearerToken
+
+**Body**: 
+```
+no body
+```
+
+**Response**:
+```
+{
+	"status": "success",
+	"message": Success.",
+	"data": [
+		{
+			"description": "Teste Carlos 1",
+			"date": "2023-08-23 01:02:35",
+			"value": "12.50"
+		}
+	]
+}
+```
+
+## ✒️ Autores
+
+Carlos Henrique de Oliveira
+---
